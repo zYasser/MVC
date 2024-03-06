@@ -10,4 +10,6 @@ public interface ClubService {
     Club save(ClubDto club);
     ClubDto findClubById(long clubId);
     void update(ClubDto club);
+    void delete(Long clubId);
+    List<ClubDto> searchClubs(String query);
 }

@@ -56,14 +56,29 @@ public class ClubController {
         return "clubs-detail";
     }
 
-
     @GetMapping("/clubs/{clubId}/edit")
     public String editClipForm(@PathVariable("clubId") long clubId, Model model) {
         ClubDto clubDto = clubService.findClubById(clubId);
         model.addAttribute("club", clubDto);
         return "clubs-edit";
 
+
     }
+
+    @GetMapping("/clubs/{clubId}/delete")
+    public String editClipForm(@PathVariable("clubId") long clubId) {
+        clubService.delete(clubId);
+        return "redirect:/clubs";
+
+
+    }
+    @GetMapping("/clubs/search")
+    public String searchClubs(@RequestParam(value = "query") String query ,Model model){
+        List<ClubDto> clubDtoList=clubService.searchClubs(query);
+        model.addAttribute("clubs" , clubDtoList);
+        return "clubs-list";
+    }
+
 
 
     @PostMapping("/clubs/{clubId}/edit")

@@ -47,6 +47,19 @@ public class ClubServiceImpl implements ClubService {
 
 
     @Override
+    public void delete(Long clubId) {
+        clubRepository.deleteById(clubId);
+    }
+
+
+    @Override
+    public List<ClubDto> searchClubs(String query) {
+        List<Club> clubs=clubRepository.searchClubs(query);
+        return clubs.stream().map(this::mapToClubDto).collect(Collectors.toList());
+    }
+
+
+    @Override
     public ClubDto findClubById(long clubId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new RuntimeException("Clip Doesn't exist"));
         return mapToClubDto(club);
